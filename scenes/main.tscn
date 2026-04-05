@@ -1,0 +1,106 @@
+[gd_scene load_steps=8 format=3 uid="uid://b2qy7u6qfl60s"]
+
+[ext_resource type="PackedScene" uid="uid://tx75anguril8" path="res://scenes/components/player1.tscn" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://dyycihfjly7g5" path="res://scenes/components/player2.tscn" id="2_0wfyh"]
+[ext_resource type="PackedScene" uid="uid://dyxulpad0111p" path="res://scenes/components/ball.tscn" id="3_sugp2"]
+[ext_resource type="Script" uid="uid://ccsctak0x1gox" path="res://scripts/ui/Score.gd" id="5_tbgi4"]
+
+[sub_resource type="GDScript" id="GDScript_jyhfs"]
+script/source = "extends Node2D
+
+\"\"\"
+func _on_ball_goal(player: Variant) -> void:
+	var point_winner = get_node(player)
+	point_winner = point_winner.get_node(\"ColorRect\")
+	
+	print(\"GOAL!\")
+	point_winner.color = Color.GREEN
+	
+	await get_tree().create_timer(3.0).timeout
+	
+	get_tree().reload_current_scene()
+\"\"\"
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sugp2"]
+size = Vector2(1152, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jyhfs"]
+size = Vector2(8, 632)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Game" type="Node2D" parent="."]
+script = SubResource("GDScript_jyhfs")
+
+[node name="Camera2D" type="Camera2D" parent="Game"]
+position = Vector2(576, 324)
+metadata/_edit_lock_ = true
+
+[node name="Player1" parent="Game" instance=ExtResource("1_o5qli")]
+position = Vector2(24, 324)
+scale = Vector2(0.4, 0.4)
+
+[node name="Player2" parent="Game" instance=ExtResource("2_0wfyh")]
+position = Vector2(1128, 324)
+scale = Vector2(0.4, 0.4)
+
+[node name="Ball" parent="Game" instance=ExtResource("3_sugp2")]
+position = Vector2(576, 324)
+
+[node name="Walls" type="StaticBody2D" parent="Game"]
+
+[node name="TopWall" type="CollisionShape2D" parent="Game/Walls"]
+position = Vector2(576, 0)
+shape = SubResource("RectangleShape2D_sugp2")
+
+[node name="BottomWall" type="CollisionShape2D" parent="Game/Walls"]
+position = Vector2(576, 648)
+shape = SubResource("RectangleShape2D_sugp2")
+
+[node name="ScoreSpotLeft" type="StaticBody2D" parent="Game"]
+
+[node name="ScoreSpotLeft" type="CollisionShape2D" parent="Game/ScoreSpotLeft"]
+position = Vector2(0, 324)
+shape = SubResource("RectangleShape2D_jyhfs")
+
+[node name="ScoreSpotRight" type="StaticBody2D" parent="Game"]
+
+[node name="ScoreSpotRight" type="CollisionShape2D" parent="Game/ScoreSpotRight"]
+position = Vector2(1152, 324)
+shape = SubResource("RectangleShape2D_jyhfs")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Score" type="Control" parent="Control"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("5_tbgi4")
+
+[node name="Player1" type="Label" parent="Control/Score"]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 40.0
+offset_right = 448.0
+offset_bottom = 64.0
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Player2" type="Label" parent="Control/Score"]
+layout_mode = 0
+offset_left = 704.0
+offset_top = 41.0
+offset_right = 768.0
+offset_bottom = 64.0
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="goal" from="Game/Ball" to="Game" method="_on_ball_goal"]
+[connection signal="goal" from="Game/Ball" to="Control/Score" method="_on_ball_goal"]
