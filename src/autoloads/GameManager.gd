@@ -8,6 +8,7 @@ var second_player_score: int = 0
 
 signal ui_update_score(player: String)
 signal ui_update_player_color_on_score(player: String)
+signal ui_toggle_score_message(player: String)
 
 
 func _ready() -> void:
@@ -23,6 +24,7 @@ func _on_ball_goal(player: String) -> void:
 
 	emit_signal("ui_update_score", player)
 	emit_signal("ui_update_player_color_on_score", player)
+	emit_signal("ui_toggle_score_message", player)
 	print(player + " got a point!")
 
 	rounds_played += 1

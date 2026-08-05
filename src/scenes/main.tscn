@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://tx75anguril8" path="res://src/components/player.tscn" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://dyxulpad0111p" path="res://src/components/Ball/ball.tscn" id="3_sugp2"]
+[ext_resource type="StyleBox" uid="uid://c26i3d48sc8x4" path="res://src/ui/panel_score.tres" id="4_5dlwx"]
 [ext_resource type="Script" uid="uid://ccsctak0x1gox" path="res://src/scripts/ui.gd" id="5_tbgi4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sugp2"]
@@ -10,9 +11,14 @@ size = Vector2(1152, 16)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jyhfs"]
 size = Vector2(16, 632)
 
-[node name="Main" type="Node2D" unique_id=2069687470 node_paths=PackedStringArray("scores")]
+[node name="Main" type="Node2D" unique_id=2069687470 node_paths=PackedStringArray("player1_data", "player2_data", "score_message_player1", "score_message_player2", "score_panel_player1", "score_panel_player2")]
 script = ExtResource("5_tbgi4")
-scores = NodePath("Control/Score")
+player1_data = NodePath("Game/Player1")
+player2_data = NodePath("Game/Player2")
+score_message_player1 = NodePath("UI/HBoxContainer/Player1ScoreMessage")
+score_message_player2 = NodePath("UI/HBoxContainer/Player2ScoreMessage")
+score_panel_player1 = NodePath("UI/HBoxContainer/PlayerScores/PanelPlayer1/MarginContainer/Player1")
+score_panel_player2 = NodePath("UI/HBoxContainer/PlayerScores/PanelPlayer2/MarginContainer/Player2")
 
 [node name="Game" type="Node2D" parent="." unique_id=1115668315]
 
@@ -51,40 +57,78 @@ player_id = 1
 
 [node name="Player2" parent="Game" unique_id=2052927503 instance=ExtResource("1_o5qli")]
 position = Vector2(1112, 325)
+rotation = 3.1415927
 player_id = 2
 player_name = "Giacomo"
 SPEED = 1000
 
-[node name="Control" type="Control" parent="." unique_id=469423693]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="UI" type="CanvasLayer" parent="." unique_id=2070786339]
 
-[node name="Score" type="Control" parent="Control" unique_id=227102637]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="HBoxContainer" type="HBoxContainer" parent="UI" unique_id=1415578574]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -364.0
+offset_top = 35.0
+offset_right = 364.0
+offset_bottom = 81.0
+grow_horizontal = 2
+theme_override_constants/separation = 30
+alignment = 1
 
-[node name="Player1" type="Label" parent="Control/Score" unique_id=1176219109]
-layout_mode = 0
-offset_left = 384.0
-offset_top = 40.0
-offset_right = 448.0
-offset_bottom = 64.0
+[node name="Player1ScoreMessage" type="RichTextLabel" parent="UI/HBoxContainer" unique_id=442057811]
+custom_minimum_size = Vector2(350, 0)
+clip_contents = false
+layout_mode = 2
+theme_override_font_sizes/bold_font_size = 26
+bbcode_enabled = true
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="PlayerScores" type="HBoxContainer" parent="UI/HBoxContainer" unique_id=1149372597]
+layout_mode = 2
+theme_override_constants/separation = 100
+alignment = 1
+
+[node name="PanelPlayer1" type="PanelContainer" parent="UI/HBoxContainer/PlayerScores" unique_id=416882917]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("4_5dlwx")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/HBoxContainer/PlayerScores/PanelPlayer1" unique_id=814048519]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_right = 6
+
+[node name="Player1" type="Label" parent="UI/HBoxContainer/PlayerScores/PanelPlayer1/MarginContainer" unique_id=1176219109]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Player2" type="Label" parent="Control/Score" unique_id=1309344990]
-layout_mode = 0
-offset_left = 704.0
-offset_top = 41.0
-offset_right = 768.0
-offset_bottom = 64.0
+[node name="PanelPlayer2" type="PanelContainer" parent="UI/HBoxContainer/PlayerScores" unique_id=1713219772]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("4_5dlwx")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/HBoxContainer/PlayerScores/PanelPlayer2" unique_id=524181838]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_right = 6
+
+[node name="Player2" type="Label" parent="UI/HBoxContainer/PlayerScores/PanelPlayer2/MarginContainer" unique_id=1309344990]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
 text = "0"
 horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Player2ScoreMessage" type="RichTextLabel" parent="UI/HBoxContainer" unique_id=2032111487]
+custom_minimum_size = Vector2(350, 0)
+clip_contents = false
+layout_mode = 2
+theme_override_font_sizes/bold_font_size = 26
+bbcode_enabled = true
 vertical_alignment = 1
 
 [connection signal="goal" from="Game/Ball" to="Game" method="_on_ball_goal"]
-[connection signal="goal" from="Game/Ball" to="Control/Score" method="_on_ball_goal"]
+[connection signal="goal" from="Game/Ball" to="UI/HBoxContainer/PlayerScores" method="_on_ball_goal"]
