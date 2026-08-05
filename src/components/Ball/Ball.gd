@@ -9,6 +9,7 @@ var collider
 var normal: Vector2 = Vector2.ZERO
 
 var has_not_been_scored: bool = true
+
 signal goal(player)
 
 
