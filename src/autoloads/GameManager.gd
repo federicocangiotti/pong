@@ -1,43 +1,35 @@
 extends Node
 
-var player1_score: int = 0
-var player2_score: int = 0
+const MAX_ROUNDS: int = 5
 
 var rounds_played: int = 0
-var max_rounds: int = 5
+var first_player_score: int = 0
+var second_player_score: int = 0
 
-signal update_ui(player)
+signal ui_update_score(player: String)
+signal ui_update_player_color_on_score(player: String)
 
 
 func _ready() -> void:
-	process_mode = Node.PROCESS_MODE_ALWAYS
+	pass
 
 
-func _on_ball_goal(player: Variant) -> void:
-	print("GOAL!")
-	_update_player_color(player)
-
+func _on_ball_goal(player: String) -> void:
 	match player:
 		"Player1":
-			player1_score += 1
-			emit_signal("update_ui", "Player1")
+			first_player_score += 1
 		"Player2":
-			player2_score += 1
-			emit_signal("update_ui", "Player2")
+			second_player_score += 1
+
+	emit_signal("ui_update_score", player)
+	emit_signal("ui_update_player_color_on_score", player)
+	print(player + " got a point!")
 
 	rounds_played += 1
 
 	await get_tree().create_timer(3.0).timeout
 
 	_restart_scene()
-
-
-func _update_player_color(player):
-	var root = get_tree().current_scene
-	var point_winner = root.get_node("Game/" + player + "/ColorRect")
-
-	print(root.get_tree_string_pretty())
-	point_winner.color = Color.GREEN
 
 
 func _restart_scene():

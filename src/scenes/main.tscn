@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://tx75anguril8" path="res://src/components/player.tscn" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://dyxulpad0111p" path="res://src/components/Ball/ball.tscn" id="3_sugp2"]
-[ext_resource type="Script" uid="uid://ccsctak0x1gox" path="res://src/scripts/ui/Score.gd" id="5_tbgi4"]
+[ext_resource type="Script" uid="uid://ccsctak0x1gox" path="res://src/scripts/ui.gd" id="5_tbgi4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sugp2"]
 size = Vector2(1152, 16)
@@ -10,7 +10,9 @@ size = Vector2(1152, 16)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jyhfs"]
 size = Vector2(16, 632)
 
-[node name="Node2D" type="Node2D" unique_id=2069687470]
+[node name="Main" type="Node2D" unique_id=2069687470 node_paths=PackedStringArray("scores")]
+script = ExtResource("5_tbgi4")
+scores = NodePath("Control/Score")
 
 [node name="Game" type="Node2D" parent="." unique_id=1115668315]
 
@@ -43,7 +45,7 @@ shape = SubResource("RectangleShape2D_jyhfs")
 position = Vector2(1152, 324)
 shape = SubResource("RectangleShape2D_jyhfs")
 
-[node name="Player" parent="Game" unique_id=769714329 instance=ExtResource("1_o5qli")]
+[node name="Player1" parent="Game" unique_id=769714329 instance=ExtResource("1_o5qli")]
 position = Vector2(30, 325)
 player_id = 1
 
@@ -63,7 +65,6 @@ offset_bottom = 40.0
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource("5_tbgi4")
 
 [node name="Player1" type="Label" parent="Control/Score" unique_id=1176219109]
 layout_mode = 0
