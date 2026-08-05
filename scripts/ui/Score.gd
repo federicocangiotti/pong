@@ -5,9 +5,10 @@ func _ready():
 	_on_update_ui("Player1")
 	_on_update_ui("Player2")
 
+
 func _on_update_ui(player) -> void:
 	var point_winner = get_node(player)
-	
+
 	match (player):
 		"Player1":
 			point_winner.text = str(GameManager.player1_score)
