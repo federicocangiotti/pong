@@ -28,7 +28,7 @@ score_message_player2 = NodePath("GameplayUI/HBoxContainer/Player2ScoreMessage")
 score_panel_player1 = NodePath("GameplayUI/HBoxContainer/PlayerScores/PanelPlayer1/MarginContainer/Player1")
 score_panel_player2 = NodePath("GameplayUI/HBoxContainer/PlayerScores/PanelPlayer2/MarginContainer/Player2")
 
-[node name="Game" type="Node2D" parent="." unique_id=1115668315 node_paths=PackedStringArray("ball", "player1", "player2", "top_wall", "bottom_wall", "score_spot_left", "score_spot_right")]
+[node name="Game" type="Node2D" parent="." unique_id=1115668315 node_paths=PackedStringArray("ball", "player1", "player2", "top_wall", "bottom_wall", "score_spot_left", "score_spot_right", "net")]
 script = ExtResource("2_lyj6l")
 ball = NodePath("Ball")
 player1 = NodePath("Player1")
@@ -37,6 +37,7 @@ top_wall = NodePath("TopWall")
 bottom_wall = NodePath("BottomWall")
 score_spot_left = NodePath("ScoreSpotLeft")
 score_spot_right = NodePath("ScoreSpotRight")
+net = NodePath("Net")
 
 [node name="Camera2D" type="Camera2D" parent="Game" unique_id=588531898]
 anchor_mode = 0
@@ -76,6 +77,9 @@ rotation = 3.1415927
 player_id = 2
 player_name = "Giacomo"
 SPEED = 1000
+
+[node name="Net" type="Line2D" parent="Game" unique_id=1543242703]
+width = 6.0
 
 [node name="GameplayUI" type="CanvasLayer" parent="." unique_id=2070786339]
 

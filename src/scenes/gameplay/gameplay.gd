@@ -20,16 +20,20 @@ var viewport_size: Vector2
 @onready var score_spot_left_shape := score_spot_left.get_child(0)
 @onready var score_spot_right_shape := score_spot_right.get_child(0)
 
+@export var net: Line2D
+
 
 func _ready() -> void:
 	get_viewport().size_changed.connect(_position_and_extend_walls)
 	get_viewport().size_changed.connect(_position_players)
+	get_viewport().size_changed.connect(_position_net)
 
 	await get_tree().process_frame
 
 	_position_and_extend_walls()
 	_position_players()
 	_position_ball()
+	_position_net()
 
 
 func _update_viewport_size() -> void:
@@ -61,3 +65,7 @@ func _position_players() -> void:
 
 func _position_ball() -> void:
 	ball.position = Vector2(viewport_size.x / 2.0, viewport_size.y / 2.0)
+
+
+func _position_net() -> void:
+	net.points = [Vector2(viewport_size.x / 2.0, 0.0), Vector2(viewport_size.x / 2.0, viewport_size.y)]
