@@ -6,6 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://tx75anguril8" path="res://src/components/player.tscn" id="3_lyj6l"]
 [ext_resource type="StyleBox" uid="uid://c26i3d48sc8x4" path="res://src/ui/panel_score.tres" id="4_wt0vg"]
 [ext_resource type="PackedScene" uid="uid://ci3enty35rui8" path="res://src/scenes/menu/menu.tscn" id="5_gyxn1"]
+[ext_resource type="FontFile" uid="uid://cd62fbo5ql700" path="res://assets/fonts/my_3x5_tiny_mono_pixel_font.ttf" id="5_wt0vg"]
+[ext_resource type="Script" uid="uid://c60pi5rhc02me" path="res://src/ui/blink_effect.gd" id="6_gyxn1"]
+[ext_resource type="FontFile" uid="uid://i3wv8n0tgpsh" path="res://assets/fonts/bit5x3.ttf" id="6_lyj6l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sugp2"]
 size = Vector2(0, 0)
@@ -18,6 +21,12 @@ size = Vector2(0, 0)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jyhfs"]
 size = Vector2(0, 0)
+
+[sub_resource type="RichTextEffect" id="RichTextEffect_wt0vg"]
+script = ExtResource("6_gyxn1")
+
+[sub_resource type="RichTextEffect" id="RichTextEffect_jiblt"]
+script = ExtResource("6_gyxn1")
 
 [node name="Main" type="Node2D" unique_id=2069687470 node_paths=PackedStringArray("player1_data", "player2_data", "score_message_player1", "score_message_player2", "score_panel_player1", "score_panel_player2")]
 script = ExtResource("1_ftmnj")
@@ -99,10 +108,12 @@ alignment = 1
 custom_minimum_size = Vector2(350, 0)
 clip_contents = false
 layout_mode = 2
+theme_override_fonts/bold_font = ExtResource("5_wt0vg")
 theme_override_font_sizes/bold_font_size = 26
 bbcode_enabled = true
 horizontal_alignment = 2
 vertical_alignment = 1
+custom_effects = [SubResource("RichTextEffect_wt0vg")]
 
 [node name="PlayerScores" type="HBoxContainer" parent="GameplayUI/HBoxContainer" unique_id=1149372597]
 layout_mode = 2
@@ -111,16 +122,18 @@ alignment = 1
 
 [node name="PanelPlayer1" type="PanelContainer" parent="GameplayUI/HBoxContainer/PlayerScores" unique_id=416882917]
 layout_mode = 2
+size_flags_horizontal = 4
 theme_override_styles/panel = ExtResource("4_wt0vg")
 
 [node name="MarginContainer" type="MarginContainer" parent="GameplayUI/HBoxContainer/PlayerScores/PanelPlayer1" unique_id=814048519]
 layout_mode = 2
-theme_override_constants/margin_left = 6
-theme_override_constants/margin_right = 6
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
 
 [node name="Player1" type="Label" parent="GameplayUI/HBoxContainer/PlayerScores/PanelPlayer1/MarginContainer" unique_id=1176219109]
 layout_mode = 2
-theme_override_font_sizes/font_size = 30
+theme_override_fonts/font = ExtResource("6_lyj6l")
+theme_override_font_sizes/font_size = 80
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -131,12 +144,13 @@ theme_override_styles/panel = ExtResource("4_wt0vg")
 
 [node name="MarginContainer" type="MarginContainer" parent="GameplayUI/HBoxContainer/PlayerScores/PanelPlayer2" unique_id=524181838]
 layout_mode = 2
-theme_override_constants/margin_left = 6
-theme_override_constants/margin_right = 6
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
 
 [node name="Player2" type="Label" parent="GameplayUI/HBoxContainer/PlayerScores/PanelPlayer2/MarginContainer" unique_id=1309344990]
 layout_mode = 2
-theme_override_font_sizes/font_size = 30
+theme_override_fonts/font = ExtResource("6_lyj6l")
+theme_override_font_sizes/font_size = 80
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -145,9 +159,11 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(350, 0)
 clip_contents = false
 layout_mode = 2
+theme_override_fonts/bold_font = ExtResource("5_wt0vg")
 theme_override_font_sizes/bold_font_size = 26
 bbcode_enabled = true
 vertical_alignment = 1
+custom_effects = [SubResource("RichTextEffect_jiblt")]
 
 [node name="Menu" parent="." unique_id=640436173 instance=ExtResource("5_gyxn1")]
 visible = false

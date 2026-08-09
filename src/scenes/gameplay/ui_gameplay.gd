@@ -40,6 +40,6 @@ func _on_update_player_color(player):
 func _on_toggle_score_message(player):
 	match (player):
 		"Player1":
-			score_message_player1.text = "[wave amp=12 freq=8][color=#00FF00][b]" + player1_data.player_name + " got a point[/b][/color][/wave]"
+			score_message_player1.text = "[blink freq=2][color=#00FF00][b]" + player1_data.player_name + " got a point[/b][/color][/blink]"
 		"Player2":
-			score_message_player2.text = "[wave amp=12 freq=8][color=#00FF00][b]" + player2_data.player_name + " got a point[/b][/color][/wave]"
+			score_message_player2.text = "[blink freq=2][color=#00FF00][b]" + player2_data.player_name + " got a point[/b][/color][/blink]"
