@@ -1,9 +1,10 @@
 extends CanvasLayer
 
 func _ready():
-	# Register itself on UIManager for pause handling
 	UIManager.ui_menu = self
-	visible = false
+
+	# Allign visibility to the tree's paused state
+	visible = get_tree().paused
 
 
 func _on_exit_pressed() -> void:

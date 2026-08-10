@@ -29,7 +29,7 @@ func _on_ball_goal(player: String) -> void:
 
 	rounds_played += 1
 
-	await get_tree().create_timer(3.0).timeout
+	await get_tree().create_timer(3.0, false).timeout
 
 	_restart_scene()
 
