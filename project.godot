@@ -18,10 +18,15 @@ config/name="pong"
 run/main_scene="uid://b2qy7u6qfl60s"
 config/features=PackedStringArray("4.7", "Forward Plus")
 
+[audio]
+
+buses/default_bus_layout="uid://22r31kcleh7k"
+
 [autoload]
 
 GameManager="*res://src/autoloads/GameManager.gd"
 UIManager="*uid://cfhvqjck14c54"
+GlobalAudioManager="*uid://o2rc02iwtasa"
 
 [display]
 

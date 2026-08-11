@@ -41,15 +41,22 @@ func _physics_process(delta):
 		"Player1", "Player2":
 			speed += SPEED_INCREMENT
 			velocity = direction * speed
+
+			GlobalAudioManager.sfx_rachet_hit.emit()
 		"ScoreSpotLeft":
 			if has_not_been_scored:
 				velocity = Vector2.ZERO
 				emit_signal("goal", "Player2")
 				has_not_been_scored = false
+
+				GlobalAudioManager.sfx_point_scored.emit()
 		"ScoreSpotRight":
 			if has_not_been_scored:
 				velocity = Vector2.ZERO
 				emit_signal("goal", "Player1")
 				has_not_been_scored = false
+
+				GlobalAudioManager.sfx_point_scored.emit()
 		_:
 			velocity = direction * speed
+			GlobalAudioManager.sfx_wall_bounce.emit()

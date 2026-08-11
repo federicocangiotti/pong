@@ -10,6 +10,9 @@
 [ext_resource type="Script" uid="uid://c60pi5rhc02me" path="res://src/ui/blink_effect.gd" id="6_gyxn1"]
 [ext_resource type="FontFile" uid="uid://i3wv8n0tgpsh" path="res://assets/fonts/bit5x3.ttf" id="6_lyj6l"]
 [ext_resource type="PackedScene" uid="uid://b4ugeunro1vht" path="res://src/scenes/game_over/game_over.tscn" id="10_jiblt"]
+[ext_resource type="AudioStream" uid="uid://dfp6pqchle08i" path="res://assets/sounds/wall_bounce.wav" id="11_copiv"]
+[ext_resource type="AudioStream" uid="uid://dqp2tt3spxere" path="res://assets/sounds/racket_hit.wav" id="12_tqn1k"]
+[ext_resource type="AudioStream" uid="uid://btd3s27ka2cc6" path="res://assets/sounds/point_scored.wav" id="13_e7en1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sugp2"]
 size = Vector2(0, 0)
@@ -173,6 +176,18 @@ visible = false
 
 [node name="GameOver" parent="." unique_id=1140021317 instance=ExtResource("10_jiblt")]
 visible = false
+
+[node name="WallBounce" type="AudioStreamPlayer" parent="." unique_id=840522765]
+stream = ExtResource("11_copiv")
+bus = &"SFX"
+
+[node name="RachetHit" type="AudioStreamPlayer" parent="." unique_id=919625328]
+stream = ExtResource("12_tqn1k")
+bus = &"SFX"
+
+[node name="PointScored" type="AudioStreamPlayer" parent="." unique_id=1886524829]
+stream = ExtResource("13_e7en1")
+bus = &"SFX"
 
 [connection signal="goal" from="Game/Ball" to="Game" method="_on_ball_goal"]
 [connection signal="goal" from="Game/Ball" to="GameplayUI/HBoxContainer/PlayerScores" method="_on_ball_goal"]
