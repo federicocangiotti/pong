@@ -9,3 +9,7 @@ func _ready():
 
 func _on_exit_pressed() -> void:
 	get_tree().quit()
+
+
+func _on_restart_game_pressed() -> void:
+	GameManager._restart_game()

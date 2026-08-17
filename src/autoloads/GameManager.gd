@@ -42,3 +42,11 @@ func _on_ball_goal(player: String) -> void:
 
 func _restart_scene() -> void:
 	get_tree().reload_current_scene()
+
+
+func _restart_game() -> void:
+	get_tree().reload_current_scene()
+	rounds_played = 0
+	first_player_score = 0
+	second_player_score = 0
+	get_tree().paused = not get_tree().paused
