@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://b4ugeunro1vht"]
+
+[ext_resource type="FontFile" uid="uid://cd62fbo5ql700" path="res://assets/fonts/my_3x5_tiny_mono_pixel_font.ttf" id="1_rhbjs"]
+[ext_resource type="Script" uid="uid://c60pi5rhc02me" path="res://src/ui/blink_effect.gd" id="2_a6ymo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gyxn1"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+
+[sub_resource type="RichTextEffect" id="RichTextEffect_gyxn1"]
+script = ExtResource("2_a6ymo")
+metadata/_custom_type_script = "uid://c60pi5rhc02me"
+
+[node name="GameOver" type="CanvasLayer" unique_id=1140021317]
+layer = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=689612183]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CenterContainer" unique_id=988031637]
+custom_minimum_size = Vector2(800, 400)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gyxn1")
+
+[node name="CenterContainer" type="CenterContainer" parent="CenterContainer/Panel" unique_id=1422409327]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GameOverText" type="RichTextLabel" parent="CenterContainer/Panel/CenterContainer" unique_id=1087421236]
+layout_mode = 2
+theme_override_fonts/bold_font = ExtResource("1_rhbjs")
+theme_override_font_sizes/bold_font_size = 50
+bbcode_enabled = true
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+custom_effects = [SubResource("RichTextEffect_gyxn1")]

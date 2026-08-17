@@ -1,0 +1,193 @@
+[gd_scene format=3 uid="uid://b2qy7u6qfl60s"]
+
+[ext_resource type="Script" uid="uid://ccsctak0x1gox" path="res://src/scenes/gameplay/ui_gameplay.gd" id="1_ftmnj"]
+[ext_resource type="Script" uid="uid://ceqwq4wlyol3x" path="res://src/scenes/gameplay/gameplay.gd" id="2_lyj6l"]
+[ext_resource type="PackedScene" uid="uid://dyxulpad0111p" path="res://src/components/Ball/ball.tscn" id="2_wh5i1"]
+[ext_resource type="PackedScene" uid="uid://tx75anguril8" path="res://src/components/player.tscn" id="3_lyj6l"]
+[ext_resource type="StyleBox" uid="uid://c26i3d48sc8x4" path="res://src/ui/panel_score.tres" id="4_wt0vg"]
+[ext_resource type="PackedScene" uid="uid://ci3enty35rui8" path="res://src/scenes/menu/menu.tscn" id="5_gyxn1"]
+[ext_resource type="FontFile" uid="uid://cd62fbo5ql700" path="res://assets/fonts/my_3x5_tiny_mono_pixel_font.ttf" id="5_wt0vg"]
+[ext_resource type="Script" uid="uid://c60pi5rhc02me" path="res://src/ui/blink_effect.gd" id="6_gyxn1"]
+[ext_resource type="FontFile" uid="uid://i3wv8n0tgpsh" path="res://assets/fonts/bit5x3.ttf" id="6_lyj6l"]
+[ext_resource type="PackedScene" uid="uid://b4ugeunro1vht" path="res://src/scenes/game_over/game_over.tscn" id="10_jiblt"]
+[ext_resource type="AudioStream" uid="uid://dfp6pqchle08i" path="res://assets/sounds/wall_bounce.wav" id="11_copiv"]
+[ext_resource type="AudioStream" uid="uid://dqp2tt3spxere" path="res://assets/sounds/racket_hit.wav" id="12_tqn1k"]
+[ext_resource type="AudioStream" uid="uid://btd3s27ka2cc6" path="res://assets/sounds/point_scored.wav" id="13_e7en1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sugp2"]
+size = Vector2(0, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lyj6l"]
+size = Vector2(0, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wh5i1"]
+size = Vector2(0, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jyhfs"]
+size = Vector2(0, 0)
+
+[sub_resource type="RichTextEffect" id="RichTextEffect_wt0vg"]
+script = ExtResource("6_gyxn1")
+
+[sub_resource type="RichTextEffect" id="RichTextEffect_jiblt"]
+script = ExtResource("6_gyxn1")
+
+[node name="Main" type="Node2D" unique_id=2069687470 node_paths=PackedStringArray("player1_data", "player2_data", "score_message_player1", "score_message_player2", "score_panel_player1", "score_panel_player2", "game_over_ui")]
+script = ExtResource("1_ftmnj")
+player1_data = NodePath("Game/Player1")
+player2_data = NodePath("Game/Player2")
+score_message_player1 = NodePath("GameplayUI/HBoxContainer/Player1ScoreMessage")
+score_message_player2 = NodePath("GameplayUI/HBoxContainer/Player2ScoreMessage")
+score_panel_player1 = NodePath("GameplayUI/HBoxContainer/PlayerScores/PanelPlayer1/MarginContainer/Player1")
+score_panel_player2 = NodePath("GameplayUI/HBoxContainer/PlayerScores/PanelPlayer2/MarginContainer/Player2")
+game_over_ui = NodePath("GameOver")
+
+[node name="Game" type="Node2D" parent="." unique_id=1115668315 node_paths=PackedStringArray("ball", "player1", "player2", "top_wall", "bottom_wall", "score_spot_left", "score_spot_right", "net")]
+script = ExtResource("2_lyj6l")
+ball = NodePath("Ball")
+player1 = NodePath("Player1")
+player2 = NodePath("Player2")
+top_wall = NodePath("TopWall")
+bottom_wall = NodePath("BottomWall")
+score_spot_left = NodePath("ScoreSpotLeft")
+score_spot_right = NodePath("ScoreSpotRight")
+net = NodePath("Net")
+
+[node name="Camera2D" type="Camera2D" parent="Game" unique_id=588531898]
+anchor_mode = 0
+enabled = false
+metadata/_edit_lock_ = true
+
+[node name="Ball" parent="Game" unique_id=939695348 instance=ExtResource("2_wh5i1")]
+position = Vector2(368, 203)
+
+[node name="TopWall" type="StaticBody2D" parent="Game" unique_id=193173217]
+
+[node name="TopWall" type="CollisionShape2D" parent="Game/TopWall" unique_id=1384086103]
+shape = SubResource("RectangleShape2D_sugp2")
+
+[node name="BottomWall" type="StaticBody2D" parent="Game" unique_id=1942330640]
+
+[node name="BottomWall" type="CollisionShape2D" parent="Game/BottomWall" unique_id=1361139818]
+shape = SubResource("RectangleShape2D_lyj6l")
+
+[node name="ScoreSpotLeft" type="StaticBody2D" parent="Game" unique_id=1919330134]
+
+[node name="ScoreSpotLeft" type="CollisionShape2D" parent="Game/ScoreSpotLeft" unique_id=1931256614]
+shape = SubResource("RectangleShape2D_wh5i1")
+
+[node name="ScoreSpotRight" type="StaticBody2D" parent="Game" unique_id=631772683]
+
+[node name="ScoreSpotRight" type="CollisionShape2D" parent="Game/ScoreSpotRight" unique_id=734557574]
+shape = SubResource("RectangleShape2D_jyhfs")
+
+[node name="Player1" parent="Game" unique_id=769714329 instance=ExtResource("3_lyj6l")]
+position = Vector2(50, 540)
+player_id = 1
+
+[node name="Player2" parent="Game" unique_id=2052927503 instance=ExtResource("3_lyj6l")]
+position = Vector2(1390, 540)
+rotation = 3.1415927
+player_id = 2
+player_name = "Giacomo"
+SPEED = 1000
+
+[node name="Net" type="Line2D" parent="Game" unique_id=1543242703]
+width = 6.0
+
+[node name="GameplayUI" type="CanvasLayer" parent="." unique_id=2070786339]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GameplayUI" unique_id=1415578574]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -464.0
+offset_top = 100.0
+offset_right = 464.0
+offset_bottom = 146.0
+grow_horizontal = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Player1ScoreMessage" type="RichTextLabel" parent="GameplayUI/HBoxContainer" unique_id=442057811]
+custom_minimum_size = Vector2(350, 0)
+clip_contents = false
+layout_mode = 2
+theme_override_fonts/bold_font = ExtResource("5_wt0vg")
+theme_override_font_sizes/bold_font_size = 26
+bbcode_enabled = true
+horizontal_alignment = 2
+vertical_alignment = 1
+custom_effects = [SubResource("RichTextEffect_wt0vg")]
+
+[node name="PlayerScores" type="HBoxContainer" parent="GameplayUI/HBoxContainer" unique_id=1149372597]
+layout_mode = 2
+theme_override_constants/separation = 100
+alignment = 1
+
+[node name="PanelPlayer1" type="PanelContainer" parent="GameplayUI/HBoxContainer/PlayerScores" unique_id=416882917]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = ExtResource("4_wt0vg")
+
+[node name="MarginContainer" type="MarginContainer" parent="GameplayUI/HBoxContainer/PlayerScores/PanelPlayer1" unique_id=814048519]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+
+[node name="Player1" type="Label" parent="GameplayUI/HBoxContainer/PlayerScores/PanelPlayer1/MarginContainer" unique_id=1176219109]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_lyj6l")
+theme_override_font_sizes/font_size = 80
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PanelPlayer2" type="PanelContainer" parent="GameplayUI/HBoxContainer/PlayerScores" unique_id=1713219772]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("4_wt0vg")
+
+[node name="MarginContainer" type="MarginContainer" parent="GameplayUI/HBoxContainer/PlayerScores/PanelPlayer2" unique_id=524181838]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+
+[node name="Player2" type="Label" parent="GameplayUI/HBoxContainer/PlayerScores/PanelPlayer2/MarginContainer" unique_id=1309344990]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_lyj6l")
+theme_override_font_sizes/font_size = 80
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Player2ScoreMessage" type="RichTextLabel" parent="GameplayUI/HBoxContainer" unique_id=2032111487]
+custom_minimum_size = Vector2(350, 0)
+clip_contents = false
+layout_mode = 2
+theme_override_fonts/bold_font = ExtResource("5_wt0vg")
+theme_override_font_sizes/bold_font_size = 26
+bbcode_enabled = true
+vertical_alignment = 1
+custom_effects = [SubResource("RichTextEffect_jiblt")]
+
+[node name="Menu" parent="." unique_id=640436173 instance=ExtResource("5_gyxn1")]
+layer = 3
+visible = false
+
+[node name="GameOver" parent="." unique_id=1140021317 instance=ExtResource("10_jiblt")]
+visible = false
+
+[node name="WallBounce" type="AudioStreamPlayer" parent="." unique_id=840522765]
+stream = ExtResource("11_copiv")
+bus = &"SFX"
+
+[node name="RachetHit" type="AudioStreamPlayer" parent="." unique_id=919625328]
+stream = ExtResource("12_tqn1k")
+bus = &"SFX"
+
+[node name="PointScored" type="AudioStreamPlayer" parent="." unique_id=1886524829]
+stream = ExtResource("13_e7en1")
+bus = &"SFX"
+
+[connection signal="goal" from="Game/Ball" to="Game" method="_on_ball_goal"]
+[connection signal="goal" from="Game/Ball" to="GameplayUI/HBoxContainer/PlayerScores" method="_on_ball_goal"]
